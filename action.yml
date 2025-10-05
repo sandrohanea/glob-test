@@ -9,15 +9,21 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  fileName:
+    description: Your file name here
     required: true
-    default: '1000'
+    default: 'test.txt'
+  filePath:
+    description: Your file path here
+    required: false
+    default: './'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: Your output description here
+  filesInCurrentDirectoryGlob:
+    description: Files by glob
+  filesByFs:
+    description: Files by fs
 
 runs:
   using: node24
