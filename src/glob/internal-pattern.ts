@@ -156,8 +156,13 @@ export class Pattern {
       itemPath = pathHelper.safeTrimTrailingSeparator(itemPath)
     }
 
+    // Minimatch expects POSIX-style separators. Convert on Windows.
+    const itemPathForMatch = IS_WINDOWS
+      ? itemPath.replace(/\\/g, '/')
+      : itemPath
+
     // Match
-    if (this.minimatch.match(itemPath)) {
+    if (this.minimatch.match(itemPathForMatch)) {
       return this.trailingSeparator ? MatchKind.Directory : MatchKind.All
     }
 

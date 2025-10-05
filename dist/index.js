@@ -28976,8 +28976,12 @@ class Pattern {
             // Normalize slashes and trim unnecessary trailing slash
             itemPath = safeTrimTrailingSeparator(itemPath);
         }
+        // Minimatch expects POSIX-style separators. Convert on Windows.
+        const itemPathForMatch = IS_WINDOWS$1
+            ? itemPath.replace(/\\/g, '/')
+            : itemPath;
         // Match
-        if (this.minimatch.match(itemPath)) {
+        if (this.minimatch.match(itemPathForMatch)) {
             return this.trailingSeparator ? MatchKind.Directory : MatchKind.All;
         }
         return MatchKind.None;
